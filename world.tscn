@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn4rhbu7c8b44"]
+
+[ext_resource type="Texture2D" uid="uid://ccgi15mpkfscy" path="res://floor-atlas.png" id="1_fsoet"]
+[ext_resource type="Script" path="res://tile_map_layer.gd" id="2_q7w6h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn4im"]
+texture = ExtResource("1_fsoet")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+2:1/next_alternative_id = 4
+2:1/0 = 0
+2:0/next_alternative_id = 3
+2:0/0 = 0
+2:0/1 = 1
+
+[sub_resource type="TileSet" id="TileSet_33vrr"]
+tile_shape = 3
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_qn4im")
+
+[node name="World" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_33vrr")
+script = ExtResource("2_q7w6h")
