@@ -34,7 +34,7 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_r5dnw")
-stretch_mode = 3
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2

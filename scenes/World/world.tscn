@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn4rhbu7c8b44"]
+[gd_scene load_steps=7 format=3 uid="uid://bn4rhbu7c8b44"]
 
+[ext_resource type="Script" path="res://scenes/World/world.gd" id="1_hp2xh"]
 [ext_resource type="Texture2D" uid="uid://ccgi15mpkfscy" path="res://assets/sprites/tiles/floor-atlas.png" id="1_imfps"]
+[ext_resource type="PackedScene" uid="uid://c4vnti5r10wi3" path="res://scenes/objects/metallurgist/metallurgist.tscn" id="3_gbox2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn4im"]
 texture = ExtResource("1_imfps")
@@ -47,7 +49,14 @@ func generateTile(pos: Vector2i) -> void:
 "
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_hp2xh")
 
 [node name="FloorLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_33vrr")
 script = SubResource("GDScript_6jlkw")
+
+[node name="Metallurgist" parent="." instance=ExtResource("3_gbox2")]
+position = Vector2(288, 162)
+
+[node name="Camera2D" type="Camera2D" parent="Metallurgist"]
+zoom = Vector2(2, 2)
