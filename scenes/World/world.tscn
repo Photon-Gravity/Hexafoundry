@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn4rhbu7c8b44"]
+
+[ext_resource type="Texture2D" uid="uid://ccgi15mpkfscy" path="res://assets/sprites/tiles/floor-atlas.png" id="1_imfps"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn4im"]
+texture = ExtResource("1_imfps")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+2:1/next_alternative_id = 4
+2:1/0 = 0
+2:0/next_alternative_id = 3
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_33vrr"]
+tile_shape = 3
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_qn4im")
+
+[sub_resource type="GDScript" id="GDScript_6jlkw"]
+script/source = "extends TileMapLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	generateChunk(Vector2i(0, 0))
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func generateChunk(cPos: Vector2i):
+	generateTerrainRectangle(cPos * 64, (cPos + Vector2i(1, 1)) * 64)
+
+
+func generateTerrainRectangle(beg: Vector2i, end: Vector2i) -> void:
+	for i in range(beg.x, end.x):
+		for j in range(beg.y, end.y):
+			generateTile(Vector2i(i, j))
+	
+func generateTile(pos: Vector2i) -> void:
+	set_cell(pos, 0, Vector2i(2, randi()%2), 0)
+"
+
+[node name="World" type="Node2D"]
+
+[node name="FloorLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_33vrr")
+script = SubResource("GDScript_6jlkw")

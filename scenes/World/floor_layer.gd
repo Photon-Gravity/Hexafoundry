@@ -3,13 +3,16 @@ extends TileMapLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	generateTerrainRectangle(Vector2i(0, 0), Vector2i(10, 10))
+	generateChunk(Vector2i(0, 0))
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func generateChunk(cPos: Vector2i):
+	generateTerrainRectangle(cPos * 64, (cPos + Vector2i(1, 1)) * 64)
 
 
 func generateTerrainRectangle(beg: Vector2i, end: Vector2i) -> void:
