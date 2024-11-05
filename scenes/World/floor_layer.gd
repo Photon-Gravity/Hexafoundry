@@ -4,6 +4,7 @@ extends TileMapLayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	generateChunk(Vector2i(0, 0))
+	generateChunk(Vector2i(1, 1))
 	pass # Replace with function body.
 
 
@@ -21,4 +22,10 @@ func generateTerrainRectangle(beg: Vector2i, end: Vector2i) -> void:
 			generateTile(Vector2i(i, j))
 	
 func generateTile(pos: Vector2i) -> void:
-	set_cell(pos, 0, Vector2i(2, randi()%2), 0)
+	set_cell(hToG(pos), 0, Vector2i(2, randi()%2), 0)
+
+func hToG(v: Vector2i) -> Vector2i:
+	return Vector2i(v.x + (v.y/2), v.y)
+
+func gToH(v: Vector2i) -> Vector2i:
+	return Vector2i(v.x - (v.y/2), v.y)

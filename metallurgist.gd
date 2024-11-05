@@ -27,16 +27,16 @@ func _physics_process(delta: float) -> void:
 		velocity.x *= INV_SQRT_2;
 		velocity.y *= INV_SQRT_2;
 	
-	if directionX > 0:
-		animated_sprite.flip_h = false
-	elif directionX < 0:
-		animated_sprite.flip_h = true;
-	
-	#animations
-	if directionX == 0 && directionY == 0:
-		animated_sprite.play("idle")
-	else:
-		animated_sprite.play("run")	
-	
+	if(Engine.time_scale > 0):
+		if directionX > 0:
+			animated_sprite.flip_h = false
+		elif directionX < 0:
+			animated_sprite.flip_h = true;
+		
+		#animations
+		if directionX == 0 && directionY == 0:
+			animated_sprite.play("idle")
+		else:
+			animated_sprite.play("run")	
 	
 	move_and_slide()
