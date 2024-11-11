@@ -72,3 +72,6 @@ text = "Options"
 custom_minimum_size = Vector2(192, 48)
 layout_mode = 2
 text = "Exit"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)

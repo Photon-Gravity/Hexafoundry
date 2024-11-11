@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://bn4rhbu7c8b44"]
 
-[ext_resource type="Script" path="res://scenes/World/world.gd" id="1_hp2xh"]
+[ext_resource type="Script" path="res://scenes/objects/World/world.gd" id="1_hp2xh"]
 [ext_resource type="Texture2D" uid="uid://ccgi15mpkfscy" path="res://assets/sprites/tiles/floor-atlas.png" id="1_imfps"]
 [ext_resource type="PackedScene" uid="uid://c4vnti5r10wi3" path="res://scenes/objects/metallurgist/metallurgist.tscn" id="3_gbox2"]
-[ext_resource type="Script" path="res://scenes/World/floor_layer.gd" id="3_ivvqt"]
+[ext_resource type="Script" path="res://scenes/objects/World/floor_layer.gd" id="3_ivvqt"]
 [ext_resource type="PackedScene" uid="uid://gbqkfscsgb3x" path="res://scenes/menus/esc_menu/esc_menu.tscn" id="4_xe6we"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn4im"]
@@ -31,14 +31,8 @@ tile_set = SubResource("TileSet_33vrr")
 script = ExtResource("3_ivvqt")
 
 [node name="Metallurgist" parent="." instance=ExtResource("3_gbox2")]
-position = Vector2(288, 162)
+position = Vector2(576, 324)
 
 [node name="Camera2D" type="Camera2D" parent="Metallurgist"]
-zoom = Vector2(2, 2)
 
 [node name="EscMenu" parent="Metallurgist/Camera2D" instance=ExtResource("4_xe6we")]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5

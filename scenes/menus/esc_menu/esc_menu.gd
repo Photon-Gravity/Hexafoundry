@@ -4,7 +4,10 @@ extends Control
 @onready var resume_button: Button = $MarginContainer/HBoxContainer/VBoxContainer/ResumeButton as Button
 @onready var exit_button: Button = $MarginContainer/HBoxContainer/VBoxContainer/ExitButton as Button
 @onready var world = $"../../.."
-const MENU_SCREEN = preload("res://scenes/menus/main_menu/menu_screen.tscn") as PackedScene
+@onready var main_menu = $"../../../../Main_Menu"
+
+@onready var camera = $".."
+@onready var main_menu_camera = $"../../../../Main_Menu/Camera2D"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,4 +24,6 @@ func resume_button_down() -> void:
 	world.pauseMenu()
 
 func exit_button_down() -> void:
-	get_tree().change_scene_to_packed(MENU_SCREEN)
+	main_menu_camera.make_current()
+	main_menu.visible = true
+	world.visible = false
