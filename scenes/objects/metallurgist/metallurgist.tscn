@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://c4vnti5r10wi3"]
+
+[ext_resource type="Script" path="res://metallurgist.gd" id="1_higgi"]
+[ext_resource type="Texture2D" uid="uid://dc4y6ftiscb1y" path="res://assets/sprites/objects/metallurgist.png" id="2_q2mkg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2junq"]
+atlas = ExtResource("2_q2mkg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtlvm"]
+atlas = ExtResource("2_q2mkg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u6ba"]
+atlas = ExtResource("2_q2mkg")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duv1b"]
+atlas = ExtResource("2_q2mkg")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rra4"]
+atlas = ExtResource("2_q2mkg")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwyna"]
+atlas = ExtResource("2_q2mkg")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81oq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2junq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtlvm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u6ba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duv1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rra4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwyna")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rpr0v"]
+
+[node name="Metallurgist" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_higgi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -16)
+sprite_frames = SubResource("SpriteFrames_81oq2")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.495633
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_rpr0v")
