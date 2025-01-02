@@ -21,6 +21,7 @@ public class UIButton extends UIElement{
 		this.height = height;
 		this.text = text;
 		visible = true;
+		clickable = true;
 		this.onClick = onClick;
 	}
 
@@ -36,8 +37,6 @@ public class UIButton extends UIElement{
 		clickCooldown = maxClickCooldown;
 
 		onClick.get();
-
-		System.out.println("buttonclick");
 	}
 	@Override
 	public void update(){
@@ -46,6 +45,6 @@ public class UIButton extends UIElement{
 
 	@Override
 	public boolean withinBounds(float x, float y) {
-		return visible && x > this.x && x < this.x + width && y > this.y && y < this.y + height;
+		return clickable && x > this.x && x < this.x + width && y > this.y && y < this.y + height;
 	}
 }

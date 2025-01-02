@@ -5,13 +5,10 @@ import core.World;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
-public class Screen extends JPanel implements KeyListener, MouseListener {
-	public int width, height, mouseX, mouseY;
+public class Screen extends JPanel implements KeyListener, MouseListener, MouseWheelListener {
+	public int width, height;
 
 	Graphics2D g2D;
 	public static Color bgColor = new Color(0, 16, 48);
@@ -22,6 +19,7 @@ public class Screen extends JPanel implements KeyListener, MouseListener {
 		setFocusable(true);
 		addKeyListener(this);
 		addMouseListener(this);
+		addMouseWheelListener(this);
 
 		this.width = width;
 		this.height = height;
@@ -84,5 +82,10 @@ public class Screen extends JPanel implements KeyListener, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		game.handleMouseWheel(e);
 	}
 }

@@ -3,10 +3,8 @@ package core;
 import core.unit.MoveForwardsAI;
 import core.unit.UnitType;
 
-import java.awt.*;
-
 public class Content {
-	static UnitType testDrone;
+	static UnitType testDrone, immobileTestDrone;
 
 	public static void load(){
 		//ai
@@ -15,6 +13,11 @@ public class Content {
 		testDrone = new UnitType("test-drone"){{
 			ai = new MoveForwardsAI();
 			speed = 2;
+		}};
+
+		immobileTestDrone = new UnitType("test-drone"){{
+			ai = new MoveForwardsAI();
+			speed = 0;
 		}};
 	}
 }

@@ -3,7 +3,7 @@ package ui;
 import java.util.ArrayList;
 
 public abstract class UIElement {
-	public boolean visible;
+	public boolean visible, clickable;
 	public int id;
 
 	public static int lastID = -1;

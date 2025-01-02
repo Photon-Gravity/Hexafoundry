@@ -1,13 +1,16 @@
 package core;
 
 import core.unit.Unit;
+import ui.Camera;
 import ui.Screen;
 import ui.UIButton;
 import ui.UIElement;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
+import java.awt.event.MouseWheelEvent;
+
+import static core.World.cam;
 
 public class Game implements Runnable {
 	long lastT = System.nanoTime(), delta = 0, accumT = 0, lastC = 0, frameCount = 0;
@@ -78,5 +81,21 @@ public class Game implements Runnable {
 		for(int i=0; i < UIElement.allUI.size(); i++){
 			if(UIElement.allUI.get(i).withinBounds(e.getX(), e.getY())) UIElement.allUI.get(i).onClick();
 		}
+	}
+
+	public void handleMouseWheel(MouseWheelEvent e) {
+		float zoomMult = 1 + e.getUnitsToScroll()*-0.1f;
+
+		float oldZoom = cam.zoom;
+
+		cam.zoom *= zoomMult;
+
+		if(cam.zoom < Camera.CAM_ZOOM_MIN) cam.zoom = Camera.CAM_ZOOM_MIN;
+		else if(cam.zoom > Camera.CAM_ZOOM_MAX) cam.zoom = Camera.CAM_ZOOM_MAX;
+
+		float realZoomMult = cam.zoom/oldZoom;
+
+		cam.x += e.getX()/oldZoom * (realZoomMult-1)/realZoomMult;
+		cam.y += e.getY()/oldZoom * (realZoomMult-1)/realZoomMult;
 	}
 }
