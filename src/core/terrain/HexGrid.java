@@ -1,7 +1,5 @@
 package core.terrain;
 
-import java.util.ArrayList;
-
 public class HexGrid<E> {
 
 
@@ -20,5 +18,13 @@ public class HexGrid<E> {
 
 	public void set(E e, int x, int y){
 		contents[width*y+x] = e;
+	}
+
+	public int width(){
+		return width;
+	}
+
+	public int height(){
+		return height;
 	}
 }

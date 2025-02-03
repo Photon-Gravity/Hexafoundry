@@ -6,7 +6,7 @@ import static core.terrain.Axial.SIZE;
 import static util.Const.ROOT3;
 
 public class Point {
-	float x, y;
+	public float x, y;
 
 	public Point(float x, float y){
 		this.x = x;

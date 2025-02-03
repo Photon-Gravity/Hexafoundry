@@ -43,4 +43,9 @@ public class Axial {
 		q = qR;
 		r = rR;
 	}
+
+	public void set(int q, int r){
+		this.q = q;
+		this.r = r;
+	}
 }

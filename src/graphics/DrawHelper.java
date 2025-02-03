@@ -1,6 +1,6 @@
 package graphics;
 
-import core.World;
+import core.terrain.Point;
 import ui.Screen;
 
 import java.awt.*;
@@ -27,6 +27,10 @@ public class DrawHelper {
 		t.rotate(rotation);
 
 		g.drawImage(region, t, null);
+	}
+
+	public static void drawRegion(Point pos, float rotation, BufferedImage region){
+		drawRegion(pos.x, pos.y, rotation, region);
 	}
 
 	public static void drawButton(String text, float x, float y, float width, float height, boolean clicked){
