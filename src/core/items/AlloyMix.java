@@ -1,5 +1,6 @@
 package core.items;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class AlloyMix {
@@ -71,5 +72,17 @@ public class AlloyMix {
 			if(!composition.containsKey(key) || !(target.composition.get(key) * tolerance < composition.get(key) && target.composition.get(key) > composition.get(key) * tolerance)) return false;
 		}
 		return true;
+	}
+
+	public Color getColor(){
+		int r = 0, g = 0, b = 0;
+
+		for(MetalType metal : composition.keySet()){
+			r += (int)(metal.color.getRed() * composition.get(metal));
+			g += (int)(metal.color.getGreen() * composition.get(metal));
+			b += (int)(metal.color.getBlue() * composition.get(metal));
+		}
+
+		return new Color(r, g, b);
 	}
 }

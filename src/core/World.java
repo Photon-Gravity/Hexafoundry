@@ -3,6 +3,7 @@ package core;
 import core.terrain.Axial;
 import core.terrain.HexGrid;
 import core.terrain.tile.Floor;
+import core.terrain.tile.Ore;
 import core.unit.Unit;
 import graphics.DrawHelper;
 import ui.Camera;
@@ -21,11 +22,14 @@ public class World {
 	public static Camera cam;
 
 	public static HexGrid<Floor> floor;
+	public static HexGrid<Ore> ores;
 
 	public static void init(){
 		floor = new HexGrid<>(127, 127);
+		ores = new HexGrid<>(127, 127);
 
 		WorldGen.generateFloor(floor);
+		WorldGen.generateOres(ores);
 
 		cam = new Camera(0, 0, 2);
 		@SuppressWarnings("unused")

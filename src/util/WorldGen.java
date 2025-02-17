@@ -3,6 +3,7 @@ package util;
 import core.Content;
 import core.terrain.HexGrid;
 import core.terrain.tile.Floor;
+import core.terrain.tile.Ore;
 
 public class WorldGen {
 	public static void generateFloor(HexGrid<Floor> floor){
@@ -13,6 +14,20 @@ public class WorldGen {
 				if(i+j < 64 || i + j > 190) result = Content.voidFloor;
 
 				floor.set(result, i, j);
+			}
+		}
+	}
+
+	public static void generateOres(HexGrid<Ore> ores){
+		for(int i=0; i < ores.width(); i++){
+			for(int j= 0; j < ores.height(); j++){
+				Ore result = null;
+
+				if((i+j < 64 || i + j > 190) && Math.random() < 0.1f) {
+					result = Content.petrometalOre;
+				}
+
+				ores.set(result, i, j);
 			}
 		}
 	}
