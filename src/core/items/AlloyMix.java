@@ -19,7 +19,7 @@ public class AlloyMix {
 
 			float sum = 0;
 			for(int i=0; i < composition.size(); i++){
-				sum += (Float)composition.entrySet().toArray()[i];
+				sum += composition.get(composition.keySet().toArray()[i]);
 			}
 			if(sum > 1f + 0.0001f || sum < 1f - 0.0001f) throw new IllegalArgumentException("Alloy proprotions do not add up to 100%.");
 		} else {

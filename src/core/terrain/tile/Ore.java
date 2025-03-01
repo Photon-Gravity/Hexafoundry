@@ -22,6 +22,7 @@ public class Ore {
         this.id = ++lastId;
 
         this.name = name;
+        this.dropMaterial = dropMaterial;
 
         texture = FileLoader.find("assets/sprites/tiles/ore/"+name+".png");
     }

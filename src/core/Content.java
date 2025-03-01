@@ -33,7 +33,7 @@ public class Content {
 		voidFloor = new Floor("void-floor");
 
 		//ore
-		petrometalOre = new Ore("basic-ore", new Item(chunk, new AlloyMix(petrometal, 1)));
+		petrometalOre = new Ore("basic-ore", new Item(chunk, new AlloyMix(petrometal, 1f)));
 
 		//ai
 

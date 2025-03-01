@@ -49,6 +49,17 @@ public class World {
 			}
 		}
 
+		//ores
+		for(int i=0; i < ores.width(); i++){
+			for(int j= 0; j < ores.height(); j++){
+				if(ores.get(i, j) != null){
+					temp.set(i, j);
+					ores.get(i, j).drawAt(temp);
+				}
+			}
+		}
+
+
 		//ground unit layer
 		for (Unit unit : units) {
 			unit.draw();
