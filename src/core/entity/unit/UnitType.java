@@ -1,4 +1,4 @@
-package core.unit;
+package core.entity.unit;
 
 import graphics.DrawHelper;
 import util.FileLoader;

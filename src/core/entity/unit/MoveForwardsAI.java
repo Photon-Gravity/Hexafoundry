@@ -1,4 +1,4 @@
-package core.unit;
+package core.entity.unit;
 
 public class MoveForwardsAI extends UnitAI{
 	@Override

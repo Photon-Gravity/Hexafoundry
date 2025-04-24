@@ -4,7 +4,7 @@ import static util.Const.HALFROOT3;
 import static util.Const.ROOT3;
 
 public class Axial {
-
+	public static Axial[] d6 = new Axial[]{new Axial(1, 0), new Axial(0, 1), new Axial(-1, 1), new Axial(-1, 0), new Axial(0, -1), new Axial(1, -1)};
 	public static final int SIZE = 8;
 	float q, r;
 
@@ -48,4 +48,6 @@ public class Axial {
 		this.q = q;
 		this.r = r;
 	}
+
+
 }

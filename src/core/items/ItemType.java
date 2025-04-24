@@ -1,6 +1,5 @@
 package core.items;
 
-import core.unit.UnitAI;
 import util.FileLoader;
 
 import java.awt.image.BufferedImage;

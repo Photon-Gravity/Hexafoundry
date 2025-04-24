@@ -1,13 +1,12 @@
-package core.terrain.tile;
+package core.terrain.constrution;
 
-import core.terrain.Axial;
 import core.terrain.Point;
 import graphics.DrawHelper;
 import util.FileLoader;
 
 import java.awt.image.BufferedImage;
 
-public class Floor {
+public class BlockType {
 	BufferedImage texture;
 
 	public int id;
@@ -17,16 +16,20 @@ public class Floor {
 	public static int lastId = -1;
 
 	public boolean walkable = true;
-	public Floor(String name){
+	public BlockType(String name){
 		this.id = ++lastId;
 
 		this.name = name;
 
-		texture = FileLoader.find("assets/sprites/tiles/floor/"+name+".png");
+		texture = FileLoader.find("assets/sprites/tiles/blocks/"+name+".png");
 	}
 
-	public void drawAt(Axial pos){
-		Point drawP = pos.toPX();
+	public void update(Block block){
+
+	}
+
+	public void draw(Block block){
+		Point drawP = block.pos.toPX();
 
 		DrawHelper.drawRegion(drawP, 0, texture);
 	}

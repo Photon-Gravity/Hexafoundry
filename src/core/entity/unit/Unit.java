@@ -1,7 +1,6 @@
-package core.unit;
+package core.entity.unit;
 
 import core.World;
-import core.unit.UnitType;
 
 public class Unit {
 	float x, y, rotation;

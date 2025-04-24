@@ -15,6 +15,10 @@ public class HexGrid<E> {
 	public E get(int x, int y){
 		return (E) contents[width * y + x];
 	}
+	@SuppressWarnings("unchecked")
+	public E get(Axial pos){
+		return (E) contents[width * (int)pos.q + (int)pos.r];
+	}
 
 	public void set(E e, int x, int y){
 		contents[width*y+x] = e;

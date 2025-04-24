@@ -1,10 +1,11 @@
 package core;
 
+import core.entity.unit.Unit;
 import core.terrain.Axial;
 import core.terrain.HexGrid;
+import core.terrain.constrution.Block;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
-import core.unit.Unit;
 import graphics.DrawHelper;
 import ui.Camera;
 import ui.UIElement;
@@ -23,10 +24,12 @@ public class World {
 
 	public static HexGrid<Floor> floor;
 	public static HexGrid<Ore> ores;
+	public static HexGrid<Block> blocks;
 
 	public static void init(){
 		floor = new HexGrid<>(127, 127);
 		ores = new HexGrid<>(127, 127);
+		blocks = new HexGrid<>(127, 127);
 
 		WorldGen.generateFloor(floor);
 		WorldGen.generateOres(ores);
@@ -59,6 +62,14 @@ public class World {
 			}
 		}
 
+		//block
+		for(int i=0; i < blocks.width(); i++){
+			for(int j= 0; j < blocks.height(); j++){
+				if(blocks.get(i, j) != null){
+					blocks.get(i, j).draw();
+				}
+			}
+		}
 
 		//ground unit layer
 		for (Unit unit : units) {

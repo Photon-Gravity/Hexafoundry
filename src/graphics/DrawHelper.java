@@ -29,8 +29,21 @@ public class DrawHelper {
 		g.drawImage(region, t, null);
 	}
 
+
+
 	public static void drawRegion(Point pos, float rotation, BufferedImage region){
 		drawRegion(pos.x, pos.y, rotation, region);
+	}
+	public static void drawRegionColored(Point pos, float rotation, BufferedImage region, Color color){
+		AffineTransform t = new AffineTransform();
+		t.translate((int)((pos.x- cam.x) * cam.zoom), (int)((pos.y - cam.y)*cam.zoom));
+		t.scale(cam.zoom, cam.zoom);
+		t.rotate(rotation);
+
+		g.drawImage(region, t, null);
+		g.setXORMode(color);
+		g.drawImage(region, t, null);
+		g.setXORMode(new Color(255, 255, 255, 255));
 	}
 
 	public static void drawButton(String text, float x, float y, float width, float height, boolean clicked){
@@ -50,5 +63,17 @@ public class DrawHelper {
 
 	public static void reset(){
 		g.setColor(Color.WHITE);
+	}
+
+	public static void tintTexture(BufferedImage texture, Color color) {
+		for(int i=0; i < texture.getWidth(); i++){
+			for(int j=0; j < texture.getHeight(); j++){
+				int pixel = texture.getRGB(i, j);
+
+				int newPixel = (int)(color.getAlpha()/255f * (pixel & 0xFF000000)) + (int)(color.getRed()/255f * (pixel & 0xFF0000)) + (int)(color.getGreen()/255f * (pixel & 0xFF00)) + (int)(color.getBlue()/255f * (pixel & 0xFF));
+
+				texture.setRGB(i, j, newPixel);
+			}
+		}
 	}
 }

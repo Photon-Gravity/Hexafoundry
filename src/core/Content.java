@@ -6,14 +6,14 @@ import core.items.ItemType;
 import core.items.MetalType;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
-import core.unit.MoveForwardsAI;
-import core.unit.UnitType;
+import core.entity.unit.MoveForwardsAI;
+import core.entity.unit.UnitType;
 
 import java.awt.*;
 
 public class Content {
 
-	public static MetalType petrometal, ketonesteel;
+	public static MetalType petrometal, wroughtKetone;
 	public static ItemType chunk, ingot;
 	public static Floor testFloor, voidFloor;
 	public static Ore petrometalOre;
@@ -22,7 +22,7 @@ public class Content {
 	public static void load(){
 		//metals
 		petrometal = new MetalType("petrometal", Color.CYAN); //TODO actual color
-		ketonesteel = new MetalType("ketonesteel", Color.BLUE); //TODO actual color
+		wroughtKetone = new MetalType("wrought-ketone", Color.BLUE); //TODO actual color
 
 		//item types
 		chunk = new ItemType("chunk");
@@ -30,7 +30,9 @@ public class Content {
 
 		//floor
 		testFloor = new Floor("test-floor");
+
 		voidFloor = new Floor("void-floor");
+		voidFloor.walkable = false;
 
 		//ore
 		petrometalOre = new Ore("basic-ore", new Item(chunk, new AlloyMix(petrometal, 1f)));

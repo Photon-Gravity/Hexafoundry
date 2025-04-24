@@ -25,13 +25,16 @@ public class Ore {
         this.dropMaterial = dropMaterial;
 
         texture = FileLoader.find("assets/sprites/tiles/ore/"+name+".png");
+
+        if(texture != null){
+            DrawHelper.tintTexture(texture, dropMaterial.composition.getColor());
+        }
+
     }
 
     public void drawAt(Axial pos){
         Point drawP = pos.toPX();
 
-        DrawHelper.color(dropMaterial.composition.getColor());
         DrawHelper.drawRegion(drawP, 0, texture);
-        DrawHelper.reset();
     }
 }
