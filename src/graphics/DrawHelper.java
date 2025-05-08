@@ -1,6 +1,6 @@
 package graphics;
 
-import core.terrain.Point;
+import core.terrain.Vec;
 import ui.Screen;
 
 import java.awt.*;
@@ -20,7 +20,14 @@ public class DrawHelper {
 		g.fillOval((int)((x - cam.x) * cam.zoom), (int)((y - cam.y)*cam.zoom), (int)(radius * cam.zoom), (int)(radius * cam.zoom));
 	}
 
+	public static void  drawCircle(Vec pos, float radius){
+		drawCircle(pos.x, pos.y, radius);
+	}
+
 	public static void drawRegion(float x, float y, float rotation, BufferedImage region){
+		x -= region.getWidth()/2f;
+		y -= region.getHeight()/2f;
+
 		AffineTransform t = new AffineTransform();
 		t.translate((int)((x - cam.x) * cam.zoom), (int)((y - cam.y)*cam.zoom));
 		t.scale(cam.zoom, cam.zoom);
@@ -31,19 +38,19 @@ public class DrawHelper {
 
 
 
-	public static void drawRegion(Point pos, float rotation, BufferedImage region){
+	public static void drawRegion(Vec pos, float rotation, BufferedImage region){
 		drawRegion(pos.x, pos.y, rotation, region);
 	}
-	public static void drawRegionColored(Point pos, float rotation, BufferedImage region, Color color){
+	public static void drawRegionColored(Vec pos, float rotation, BufferedImage region, Color color){
 		AffineTransform t = new AffineTransform();
 		t.translate((int)((pos.x- cam.x) * cam.zoom), (int)((pos.y - cam.y)*cam.zoom));
 		t.scale(cam.zoom, cam.zoom);
 		t.rotate(rotation);
 
-		g.drawImage(region, t, null);
-		g.setXORMode(color);
-		g.drawImage(region, t, null);
-		g.setXORMode(new Color(255, 255, 255, 255));
+		//g.drawImage(region, t, null);
+		//g.setXORMode(color);
+		//g.drawImage(region, t, null);
+		//g.setXORMode(new Color(255, 255, 255, 255));
 	}
 
 	public static void drawButton(String text, float x, float y, float width, float height, boolean clicked){
@@ -54,6 +61,17 @@ public class DrawHelper {
 		reset();
 		if(!clicked) color(new Color(227, 222, 119));
 		g.drawString(text, x+10, y + 10+g.getFont().getSize());
+		reset();
+	}
+
+	public static void drawImageButton(BufferedImage icon, float x, float y, float width, float height, boolean clicked){
+		if(!clicked) color(new Color(227, 222, 119));
+		g.fillRect((int)x, (int)y, (int)width,(int)height);
+		color(Screen.bgColor);
+		g.fillRect((int)x + 5, (int)y + 5, (int)width - 10, (int)height - 10);
+		reset();
+		if(!clicked) color(new Color(227, 222, 119));
+		g.drawImage(icon, (int)x+10, (int)y + 10, null);
 		reset();
 	}
 

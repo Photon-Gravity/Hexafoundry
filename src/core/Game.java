@@ -1,16 +1,15 @@
 package core;
 
 import core.entity.unit.Unit;
-import ui.Camera;
-import ui.Screen;
-import ui.UIButton;
-import ui.UIElement;
+import ui.*;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import static core.World.cam;
+import static core.World.cursor;
 
 public class Game implements Runnable {
 	long lastT = System.nanoTime(), delta = 0, accumT = 0, lastC = 0, frameCount = 0;
@@ -21,13 +20,32 @@ public class Game implements Runnable {
 
 	Screen renderScreen;
 
+	public static PointerInfo mouseInfo;
+
 	public Game(Screen renderScreen){
 		this.renderScreen = renderScreen;
 
+		mouseInfo = MouseInfo.getPointerInfo();
+
 		Content.load();
 
-		new UIButton(10, 10, 100, 35, "Spawn Test Drone", ()->{
+		new UIButton(10, 10, 150, 35, "Spawn Test Drone", ()->{
 			new Unit(Content.testDrone, 100, 100, 0);
+			return null;
+		});
+
+		new UIImageButton(170, 10, 150, 35, Content.basicDrill.texture, ()->{
+			cursor = Content.basicDrill;
+			return null;
+		});
+
+		new UIImageButton(225, 10, 150, 35, Content.pneumaticDuct.texture, ()->{
+			cursor = Content.pneumaticDuct;
+			return null;
+		});
+
+		new UIImageButton(250, 10, 150, 35, Content.merger.texture, ()->{
+			cursor = Content.merger;
 			return null;
 		});
 
@@ -42,6 +60,7 @@ public class Game implements Runnable {
 			accumT += delta;
 
 			if(accumT > TICK_TIME){
+				mouseInfo = MouseInfo.getPointerInfo();
 				World.update();
 				accumT -= TICK_TIME;
 				renderScreen.repaint();
@@ -58,7 +77,7 @@ public class Game implements Runnable {
 	}
 
 	public void handleKeyPress(KeyEvent e){
-		if(e.getKeyChar() == 'w'){
+		if(e.getKeyChar() == 'w'){ //camera movement
 			World.cvy = -1;
 		} else if(e.getKeyChar() == 's'){
 			World.cvy = 1;
@@ -66,6 +85,12 @@ public class Game implements Runnable {
 			World.cvx = -1;
 		} else if(e.getKeyChar() == 'd'){
 			World.cvx = 1;
+		}
+		else if(e.getKeyChar() == 'q'){ //controls
+			World.cursor = null;
+		} else if(e.getKeyChar() == 'r'){
+			World.cursorRotation++;
+			World.cursorRotation %= 6;
 		}
 	}
 
@@ -78,8 +103,18 @@ public class Game implements Runnable {
 	}
 
 	public void handleMouseClick(MouseEvent e){
+		boolean buttonClicked = false;
 		for(int i=0; i < UIElement.allUI.size(); i++){
-			if(UIElement.allUI.get(i).withinBounds(e.getX(), e.getY())) UIElement.allUI.get(i).onClick();
+			if(UIElement.allUI.get(i).withinBounds(e.getX(), e.getY())){
+				UIElement.allUI.get(i).onClick();
+				buttonClicked = true;
+			}
+		}
+
+		if(!buttonClicked && e.getButton() == MouseEvent.BUTTON1) {
+			World.tryPlaceCursor();
+		} else if (!buttonClicked && e.getButton() == MouseEvent.BUTTON3) {
+			World.tryDeconstructCursor();
 		}
 	}
 

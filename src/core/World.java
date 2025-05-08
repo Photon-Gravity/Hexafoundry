@@ -3,7 +3,9 @@ package core;
 import core.entity.unit.Unit;
 import core.terrain.Axial;
 import core.terrain.HexGrid;
+import core.terrain.Vec;
 import core.terrain.constrution.Block;
+import core.terrain.constrution.BlockType;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
 import graphics.DrawHelper;
@@ -22,23 +24,35 @@ public class World {
 
 	public static Camera cam;
 
+	public static Vec mousePos = new Vec(0, 0);
+	public static Axial mouseTile = new Axial(0, 0);
+
 	public static HexGrid<Floor> floor;
 	public static HexGrid<Ore> ores;
 	public static HexGrid<Block> blocks;
 
+	public static final int WORLD_SIZE = 127;
+
+	public static BlockType cursor;
+
+	public static int cursorRotation = 0;
+
 	public static void init(){
-		floor = new HexGrid<>(127, 127);
-		ores = new HexGrid<>(127, 127);
-		blocks = new HexGrid<>(127, 127);
+		floor = new HexGrid<>(WORLD_SIZE, WORLD_SIZE);
+		ores = new HexGrid<>(WORLD_SIZE, WORLD_SIZE);
+		blocks = new HexGrid<>(WORLD_SIZE, WORLD_SIZE);
 
 		WorldGen.generateFloor(floor);
 		WorldGen.generateOres(ores);
+
+		cursor = Content.basicDrill;
 
 		cam = new Camera(0, 0, 2);
 		@SuppressWarnings("unused")
 		Unit u = new Unit(Content.testDrone, 100, 100, 0);
 		@SuppressWarnings("unused")
 		Unit u2 = new Unit(Content.immobileTestDrone, 0, 0, (float)Math.PI);
+
 	}
 	public static void render(Graphics2D g){
 		DrawHelper.setGraphics(g);
@@ -71,6 +85,11 @@ public class World {
 			}
 		}
 
+		//cursor
+		if(blocks.inBounds(mouseTile) && cursor != null && cursor.canPlace(mouseTile, cursorRotation)) {
+			cursor.drawGhost(mouseTile, cursorRotation);
+		}
+
 		//ground unit layer
 		for (Unit unit : units) {
 			unit.draw();
@@ -82,9 +101,16 @@ public class World {
 		}
 	}
 
+
 	public static void update(){
 		cam.x += cvx / cam.zoom * camMoveSpeed;
 		cam.y += cvy / cam.zoom * camMoveSpeed;
+
+		Point mousePoint = Game.mouseInfo.getLocation();
+		mousePos = (new Vec((float)mousePoint.getX()-12, (float)mousePoint.getY()-24)).toPX();
+
+		mouseTile = mousePos.toAxial();
+		mouseTile.round();
 
 		for (Unit unit : units) {
 			unit.update();
@@ -93,5 +119,25 @@ public class World {
 		for(UIElement element : UIElement.allUI){
 			element.update();
 		}
+
+		for(Block block : blocks){
+			if(block != null){
+				block.update();
+			}
+		}
 	}
+
+	public static void tryPlaceCursor(){
+		if(blocks.inBounds(mouseTile) && cursor != null && cursor.canPlace(mouseTile, cursorRotation)) {
+			cursor.placeBlock(mouseTile, cursorRotation);
+		}
+	}
+
+	public static void tryDeconstructCursor(){
+		if(blocks.inBounds(mouseTile) && blocks.get(mouseTile) != null) {
+			blocks.get(mouseTile).type.onDestroy(blocks.get(mouseTile));
+			blocks.set(null, mouseTile);
+		}
+	}
+
 }

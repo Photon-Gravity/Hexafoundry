@@ -1,21 +1,26 @@
 package core.terrain.constrution;
 
-import core.items.ItemStack;
+import core.items.Item;
 import core.terrain.Axial;
-import graphics.DrawHelper;
 
 import java.util.ArrayList;
 
 /** This class represents the in-world entity of a block.*/
 public class Block {
+
 	Axial pos;
-	BlockType type;
+	public BlockType type;
 
-	ArrayList<ItemStack> items;
+	ArrayList<Item> items;
 
-	public Block(Axial pos, BlockType type){
+	int rotation;
+
+	float progress = 0;
+
+	public Block(Axial pos, BlockType type, int rotation){
 		this.pos = pos;
 		this.type = type;
+		this.rotation = rotation;
 
 		items = new ArrayList<>();
 	}
@@ -25,6 +30,6 @@ public class Block {
 	}
 
 	public void draw(){
-		DrawHelper.drawRegion(pos.toPX(), 0, type.texture);
+		type.draw(this);
 	}
 }

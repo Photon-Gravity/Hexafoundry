@@ -1,7 +1,7 @@
 package core.terrain.tile;
 
 import core.terrain.Axial;
-import core.terrain.Point;
+import core.terrain.Vec;
 import graphics.DrawHelper;
 import util.FileLoader;
 
@@ -16,7 +16,7 @@ public class Floor {
 
 	public static int lastId = -1;
 
-	public boolean walkable = true;
+	public boolean solid = true;
 	public Floor(String name){
 		this.id = ++lastId;
 
@@ -26,7 +26,7 @@ public class Floor {
 	}
 
 	public void drawAt(Axial pos){
-		Point drawP = pos.toPX();
+		Vec drawP = pos.toPX();
 
 		DrawHelper.drawRegion(drawP, 0, texture);
 	}

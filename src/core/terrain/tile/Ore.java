@@ -2,7 +2,7 @@ package core.terrain.tile;
 
 import core.items.Item;
 import core.terrain.Axial;
-import core.terrain.Point;
+import core.terrain.Vec;
 import graphics.DrawHelper;
 import util.FileLoader;
 
@@ -15,7 +15,7 @@ public class Ore {
     public int id;
 
     String name;
-    Item dropMaterial;
+    public Item dropMaterial;
 
     public static int lastId = -1;
     public Ore(String name, Item dropMaterial){
@@ -33,7 +33,7 @@ public class Ore {
     }
 
     public void drawAt(Axial pos){
-        Point drawP = pos.toPX();
+        Vec drawP = pos.toPX();
 
         DrawHelper.drawRegion(drawP, 0, texture);
     }

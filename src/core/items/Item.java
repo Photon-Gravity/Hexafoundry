@@ -1,6 +1,6 @@
 package core.items;
 
-import core.terrain.Point;
+import core.terrain.Vec;
 import graphics.DrawHelper;
 
 public class Item {
@@ -13,7 +13,7 @@ public class Item {
     }
 
 
-    public void draw(Point pos){
+    public void draw(Vec pos){
         DrawHelper.color(composition.getColor());
         DrawHelper.drawRegion(pos, 0, type.region);
         DrawHelper.reset();
