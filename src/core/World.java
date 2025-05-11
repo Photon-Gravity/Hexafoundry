@@ -45,8 +45,6 @@ public class World {
 		WorldGen.generateFloor(floor);
 		WorldGen.generateOres(ores);
 
-		cursor = Content.basicDrill;
-
 		cam = new Camera(0, 0, 2);
 		@SuppressWarnings("unused")
 		Unit u = new Unit(Content.testDrone, 100, 100, 0);
@@ -77,10 +75,10 @@ public class World {
 		}
 
 		//block
-		for(int i=0; i < blocks.width(); i++){
-			for(int j= 0; j < blocks.height(); j++){
-				if(blocks.get(i, j) != null){
-					blocks.get(i, j).draw();
+		for(int i=0; i < blocks.height(); i++){
+			for(int j= 0; j < blocks.width(); j++){
+				if(blocks.get(j, i) != null){
+					blocks.get(j, i).draw();
 				}
 			}
 		}

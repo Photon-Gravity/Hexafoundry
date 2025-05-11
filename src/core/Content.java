@@ -64,6 +64,7 @@ public class Content {
 
 		pointer = new PointerBlockType("pointer");
 		basicDrill = new DrillType("basic-drill"){{
+			extractionSpeed = 0.25f/60f;
 			shape = new Axial[]{new Axial(0, 1), new Axial(-1, 1)};
 			itemTarget = new Axial(-1, 2);
 		}};

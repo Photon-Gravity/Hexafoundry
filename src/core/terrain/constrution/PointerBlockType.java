@@ -1,6 +1,7 @@
 package core.terrain.constrution;
 
 import core.World;
+import core.items.Item;
 import core.terrain.Axial;
 import core.terrain.Vec;
 
@@ -29,5 +30,19 @@ public class PointerBlockType extends BlockType{
 		World.blocks.get(target).type.onDestroy(World.blocks.get(target));
 		World.blocks.set(null, target);
 
+	}
+
+	@Override
+	public void handleItem(Item item, Block source, Block target) {
+		Block pointerTarget = World.blocks.get(((PointerBlock)target).target);
+
+		pointerTarget.type.handleItem(item, source, pointerTarget);
+	}
+
+	@Override
+	public boolean acceptsItem(Item item, Block source, Block target) {
+		Block pointerTarget = World.blocks.get(((PointerBlock)target).target);
+
+		return pointerTarget.type.acceptsItem(item, source, pointerTarget);
 	}
 }

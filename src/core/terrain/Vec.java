@@ -32,4 +32,13 @@ public class Vec {
 				(              2f/3 * y) / SIZE
 		);
 	}
+
+	public static float dotProduct(Vec a, Vec b){
+		return a.x * b.x + a.y * b.y;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Vec other && this.x == other.x && this.y == other.y;
+	}
 }

@@ -47,14 +47,23 @@ public class DrillType extends MultiBlockType{
 	public boolean canPlace(Axial pos, int rotation) {
 
 
-		return super.canPlace(pos, rotation);
+		boolean hasOre = World.ores.get(pos) != null;
+
+		if(!hasOre){
+			for(Axial subunit : shape){
+				if(World.ores.get(pos.trns(subunit.rotate(rotation))) != null){
+					hasOre = true;
+					break;
+				}
+			}
+		}
+
+		return super.canPlace(pos, rotation) && hasOre;
 	}
 
 	@Override
 	public void update(Block block) {
 		super.update(block);
-
-		System.out.println(block.items.size() > 0);
 
 		Block outputTarget = World.blocks.get(block.pos.trns(itemTarget.rotate(block.rotation)));
 

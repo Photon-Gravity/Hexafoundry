@@ -1,12 +1,16 @@
 package util;
 
 import core.Content;
+import core.terrain.Axial;
 import core.terrain.HexGrid;
+import core.terrain.Vec;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
 
 /** Class that contains the world gneration functions. */
 public class WorldGen {
+
+	public static PerlinSampler methaneOreNoise = new PerlinSampler(0.005f);
 	public static void generateFloor(HexGrid<Floor> floor){
 		for(int i=0; i < floor.width(); i++){
 			for(int j= 0; j < floor.height(); j++){
@@ -42,7 +46,9 @@ public class WorldGen {
 			for(int j= 0; j < ores.height(); j++){
 				Ore result = null;
 
-				if(i+j >= ores.width()/2 && i + j <= ores.width() / 2 * 3 -2 && Math.random() < 0.1f) {
+				Vec pos = new Axial(i, j).toPX();
+
+				if(i+j >= ores.width()/2 && i + j <= ores.width() / 2 * 3 -2 && methaneOreNoise.sampleNoise(pos) >0.35f) {
 					result = Content.methaneOre;
 				}
 
