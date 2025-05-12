@@ -41,6 +41,12 @@ public class MultiBlockType extends RotatableBlockType{
 
 
 	public boolean validTile(Axial pos){
+		for(Axial ocpos : World.getOccupiedTiles()){
+			if(ocpos.eq(pos)){
+				return false;
+			}
+		}
+
 		return World.floor.inBounds(pos) && World.floor.get(pos).solid && World.blocks.get(pos) == null;
 	}
 	@Override

@@ -49,6 +49,11 @@ public class Game implements Runnable {
 			return null;
 		});
 
+		new UIImageButton(275, 10, 150, 35, Content.warehouse.texture, ()->{
+			cursor = Content.warehouse;
+			return null;
+		});
+
 		World.init();
 	}
 

@@ -1,12 +1,10 @@
 package core;
 
-import core.entity.unit.MoveForwardsAI;
+import core.entity.unit.HoverAI;
 import core.entity.unit.UnitType;
-import core.items.AlloyMix;
-import core.items.Item;
-import core.items.ItemType;
-import core.items.MetalType;
+import core.items.*;
 import core.terrain.Axial;
+import core.terrain.WarehouseType;
 import core.terrain.constrution.*;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
@@ -17,12 +15,12 @@ import java.awt.*;
 public class Content {
 
 	public static MetalType methane, wroughtKetone;
-	public static ItemType chunk, ingot;
+	public static ItemType chunk, ingot, cog;
 	public static Floor testFloor, amalgamFloor1, amalgamFloor2, amalgamFloor3, amalgamFloor4, voidFloor;
 	public static Ore methaneOre;
-	static UnitType testDrone, immobileTestDrone;
+	static UnitType testDrone;
 
-	public static BlockType pointer, basicDrill, pneumaticDuct, merger;
+	public static BlockType pointer, basicDrill, pneumaticDuct, merger, warehouse;
 
 	public static void load(){
 		//metals
@@ -32,6 +30,7 @@ public class Content {
 		//item types
 		chunk = new ItemType("chunk");
 		ingot = new ItemType("ingot");
+		cog = new ItemType("cog");
 
 		//floor
 		testFloor = new Floor("test-floor");
@@ -51,13 +50,8 @@ public class Content {
 
 		//unit
 		testDrone = new UnitType("test-drone"){{
-			ai = new MoveForwardsAI();
-			speed = 2;
-		}};
-
-		immobileTestDrone = new UnitType("test-drone"){{
-			ai = new MoveForwardsAI();
-			speed = 0;
+			ai = new HoverAI();
+			speed = 8;
 		}};
 
 		//blocktypes
@@ -67,10 +61,37 @@ public class Content {
 			extractionSpeed = 0.25f/60f;
 			shape = new Axial[]{new Axial(0, 1), new Axial(-1, 1)};
 			itemTarget = new Axial(-1, 2);
+
+			cost = new ItemIngredient[]{
+					new ItemIngredient("methane-ingot", 5),
+					new ItemIngredient("methane-cog", 2)
+			};
 		}};
 
-		pneumaticDuct = new PneumaticDuctType("pneumatic-duct");
+		pneumaticDuct = new PneumaticDuctType("pneumatic-duct"){{
+			cost = new ItemIngredient[]{
+					new ItemIngredient("methane-ingot", 1)
+			};
+		}};
 
-		merger = new MergerType("merger");
+		merger = new MergerType("merger"){{
+			cost = new ItemIngredient[]{
+					new ItemIngredient("methane-ingot", 2)
+			};
+		}};
+
+		warehouse = new WarehouseType("warehouse"){{
+			shape = Axial.d6;
+			cost = new ItemIngredient[]{
+				new ItemIngredient("methane-ingot", 20),
+				new ItemIngredient("methane-cog", 5),
+			};
+
+		}};
+
+		new Qualification("methane-ingot", item -> (item.type == ingot && item.composition.closeEnoughTo(new AlloyMix(methane, 1f), 0.9f)));
+		new Qualification("methane-cog", item -> (item.type == cog && item.composition.closeEnoughTo(new AlloyMix(methane, 1f), 0.9f)));
+
+		new Qualification("ketonesteel-ingot", item -> (item.type == ingot && item.composition.closeEnoughTo(new AlloyMix(methane, 0.75f, wroughtKetone, 0.25f), 0.9f)));
 	}
 }

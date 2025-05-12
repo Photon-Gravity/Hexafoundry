@@ -1,11 +1,18 @@
 package core;
 
+import core.entity.marker.GhostMarker;
+import core.entity.marker.Marker;
+import core.entity.marker.MarkerStatus;
 import core.entity.unit.Unit;
+import core.items.AlloyMix;
+import core.items.Item;
 import core.terrain.Axial;
 import core.terrain.HexGrid;
 import core.terrain.Vec;
 import core.terrain.constrution.Block;
 import core.terrain.constrution.BlockType;
+import core.terrain.constrution.MultiBlockType;
+import core.terrain.ghost.Ghost;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
 import graphics.DrawHelper;
@@ -31,6 +38,10 @@ public class World {
 	public static HexGrid<Ore> ores;
 	public static HexGrid<Block> blocks;
 
+	public static ArrayList<Ghost> ghosts = new ArrayList<>();
+
+
+	public static ArrayList<Marker> markers = new ArrayList<>();
 	public static final int WORLD_SIZE = 127;
 
 	public static BlockType cursor;
@@ -48,8 +59,14 @@ public class World {
 		cam = new Camera(0, 0, 2);
 		@SuppressWarnings("unused")
 		Unit u = new Unit(Content.testDrone, 100, 100, 0);
-		@SuppressWarnings("unused")
-		Unit u2 = new Unit(Content.immobileTestDrone, 0, 0, (float)Math.PI);
+
+		Content.warehouse.placeBlock(new Axial(50, 50), 0);
+		Content.warehouse.placeBlock(new Axial(55, 50), 0);
+
+		for(int i=0;i<100;i++){
+			World.blocks.get(new Axial(50, 50)).getItems().add(new Item(Content.ingot, new AlloyMix(Content.methane, 1f)));
+			World.blocks.get(new Axial(55, 50)).getItems().add(new Item(Content.cog, new AlloyMix(Content.methane, 1f)));
+		}
 
 	}
 	public static void render(Graphics2D g){
@@ -81,6 +98,11 @@ public class World {
 					blocks.get(j, i).draw();
 				}
 			}
+		}
+
+		//ghost
+		for(Ghost ghost : ghosts){
+			ghost.type.drawGhost(ghost.pos, ghost.rotation);
 		}
 
 		//cursor
@@ -127,15 +149,41 @@ public class World {
 
 	public static void tryPlaceCursor(){
 		if(blocks.inBounds(mouseTile) && cursor != null && cursor.canPlace(mouseTile, cursorRotation)) {
-			cursor.placeBlock(mouseTile, cursorRotation);
+			ghosts.add(new Ghost(mouseTile, cursorRotation, cursor));
 		}
 	}
 
 	public static void tryDeconstructCursor(){
+		for(Ghost ghost : ghosts){
+			if(ghost.pos.eq(mouseTile)){
+				for(Marker m : markers){
+					if(m instanceof GhostMarker gm && gm.owner == ghost){
+						markers.remove(m);
+						m.status = MarkerStatus.FULFILLED;
+					}
+				}
+				ghosts.remove(ghost);
+				break;
+			}
+		}
+
 		if(blocks.inBounds(mouseTile) && blocks.get(mouseTile) != null) {
 			blocks.get(mouseTile).type.onDestroy(blocks.get(mouseTile));
 			blocks.set(null, mouseTile);
 		}
+	}
+
+	public static ArrayList<Axial> getOccupiedTiles(){
+		ArrayList<Axial> out = new ArrayList<>();
+		for(Ghost ghost : ghosts){
+			out.add(ghost.pos);
+			if(ghost.type instanceof MultiBlockType multighost){
+				for(Axial pos : multighost.shape){
+					out.add(pos.rotate(ghost.rotation).trns(ghost.pos));
+				}
+			}
+		}
+		return out;
 	}
 
 }

@@ -2,6 +2,7 @@ package core.terrain.constrution;
 
 import core.World;
 import core.items.Item;
+import core.items.ItemIngredient;
 import core.terrain.Axial;
 import core.terrain.Vec;
 import graphics.DrawHelper;
@@ -22,6 +23,8 @@ public class BlockType {
 	public static int lastId = -1;
 
 	public boolean walkable = true;
+
+	public ItemIngredient[] cost;
 
 	protected BlockType(){
 		this.id = ++lastId;
@@ -52,7 +55,16 @@ public class BlockType {
 	}
 
 	public boolean canPlace(Axial pos, int rotation){
-		return World.blocks.get(pos) == null && World.floor.get(pos).solid && World.blocks.get(pos) == null;
+		boolean unobstructed = true;
+		for(Axial ocpos : World.getOccupiedTiles()){
+			if(ocpos.eq(pos)){
+				unobstructed = false;
+				break;
+			}
+		}
+
+
+		return World.blocks.get(pos) == null && World.floor.get(pos).solid && World.blocks.get(pos) == null && unobstructed;
 	}
 
 	public void draw(Block block){

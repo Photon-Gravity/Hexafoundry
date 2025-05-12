@@ -45,4 +45,6 @@ public class PointerBlockType extends BlockType{
 
 		return pointerTarget.type.acceptsItem(item, source, pointerTarget);
 	}
+
+
 }

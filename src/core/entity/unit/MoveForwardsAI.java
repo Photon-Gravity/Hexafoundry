@@ -1,5 +1,7 @@
 package core.entity.unit;
 
+import core.entity.marker.Marker;
+
 public class MoveForwardsAI extends UnitAI{
 	@Override
 	public void processUnit(Unit u) {
@@ -9,5 +11,10 @@ public class MoveForwardsAI extends UnitAI{
 		u.x += dx;
 		u.y += dy;
 		u.rotation += (float)Math.PI*2/60f/2;
+	}
+
+	@Override
+	public Marker getDestination(Unit u) {
+		return null;
 	}
 }

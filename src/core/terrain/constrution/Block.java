@@ -8,10 +8,10 @@ import java.util.ArrayList;
 /** This class represents the in-world entity of a block.*/
 public class Block {
 
-	Axial pos;
+	public Axial pos;
 	public BlockType type;
 
-	ArrayList<Item> items;
+	protected ArrayList<Item> items;
 
 	int rotation;
 
@@ -32,4 +32,9 @@ public class Block {
 	public void draw(){
 		type.draw(this);
 	}
+
+	public ArrayList<Item> getItems(){
+		return items;
+	}
+
 }

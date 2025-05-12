@@ -12,9 +12,11 @@ public class UnitType {
 
 	public UnitAI ai;
 
-	public float speed = 1;
+	public float speed = 1, rotationSpeed = 6f;
 
 	public BufferedImage region;
+
+	public int itemCap = 5;
 
 	public UnitType(String name){
 		this.id = ++lastId;

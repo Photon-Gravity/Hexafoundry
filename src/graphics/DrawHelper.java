@@ -36,6 +36,19 @@ public class DrawHelper {
 		g.drawImage(region, t, null);
 	}
 
+	public static void drawRegion(Vec pos, float rotation, BufferedImage region, float scl){
+		float x = pos.x - region.getWidth()/2f * scl;
+		float y = pos.y - region.getHeight()/2f * scl;
+
+		AffineTransform t = new AffineTransform();
+		t.translate((int)((x - cam.x) * cam.zoom), (int)((y - cam.y)*cam.zoom));
+		t.scale(cam.zoom, cam.zoom);
+		t.scale(scl, scl);
+		t.rotate(rotation);
+
+		g.drawImage(region, t, null);
+	}
+
 
 
 	public static void drawRegion(Vec pos, float rotation, BufferedImage region){
@@ -93,5 +106,13 @@ public class DrawHelper {
 				texture.setRGB(i, j, newPixel);
 			}
 		}
+	}
+
+	public static BufferedImage copyImage(BufferedImage source){
+		BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+		Graphics g = b.getGraphics();
+		g.drawImage(source, 0, 0, null);
+		g.dispose();
+		return b;
 	}
 }
