@@ -1,5 +1,6 @@
 package core.entity.unit;
 
+import core.terrain.Vec;
 import graphics.DrawHelper;
 import util.FileLoader;
 
@@ -27,6 +28,7 @@ public class UnitType {
 	}
 
 	public void draw(Unit u){
-		DrawHelper.drawRegion(u.x, u.y, u.rotation +(float)Math.PI/2, region);
+		Vec pos = new Vec(u.x, u.y);
+		DrawHelper.drawRegion(pos, u.rotation +(float)Math.PI/2, region);
 	}
 }

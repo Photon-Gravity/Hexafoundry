@@ -9,9 +9,9 @@ import core.items.Item;
 import core.terrain.Axial;
 import core.terrain.HexGrid;
 import core.terrain.Vec;
-import core.terrain.constrution.Block;
-import core.terrain.constrution.BlockType;
-import core.terrain.constrution.MultiBlockType;
+import core.terrain.constrution.blocks.Block;
+import core.terrain.constrution.types.BlockType;
+import core.terrain.constrution.types.MultiBlockType;
 import core.terrain.ghost.Ghost;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
@@ -58,7 +58,7 @@ public class World {
 
 		cam = new Camera(0, 0, 2);
 		@SuppressWarnings("unused")
-		Unit u = new Unit(Content.testDrone, 100, 100, 0);
+		Unit u = new Unit(Content.testDrone, 1000, 600, 0);
 
 		Content.warehouse.placeBlock(new Axial(50, 50), 0);
 		Content.warehouse.placeBlock(new Axial(55, 50), 0);
@@ -156,10 +156,12 @@ public class World {
 	public static void tryDeconstructCursor(){
 		for(Ghost ghost : ghosts){
 			if(ghost.pos.eq(mouseTile)){
-				for(Marker m : markers){
+				for(int i =0; i < World.markers.size(); i++){
+					Marker m = World.markers.get(i);
 					if(m instanceof GhostMarker gm && gm.owner == ghost){
 						markers.remove(m);
 						m.status = MarkerStatus.FULFILLED;
+						i--;
 					}
 				}
 				ghosts.remove(ghost);

@@ -29,10 +29,10 @@ public class Game implements Runnable {
 
 		Content.load();
 
-		new UIButton(10, 10, 150, 35, "Spawn Test Drone", ()->{
-			new Unit(Content.testDrone, 100, 100, 0);
-			return null;
-		});
+//		new UIButton(10, 10, 150, 35, "Spawn Test Drone", ()->{
+//			new Unit(Content.testDrone, 100, 100, 0);
+//			return null;
+//		});
 
 		new UIImageButton(170, 10, 150, 35, Content.basicDrill.texture, ()->{
 			cursor = Content.basicDrill;
@@ -44,13 +44,28 @@ public class Game implements Runnable {
 			return null;
 		});
 
-		new UIImageButton(250, 10, 150, 35, Content.merger.texture, ()->{
+		new UIImageButton(260, 10, 150, 35, Content.merger.texture, ()->{
 			cursor = Content.merger;
 			return null;
 		});
 
-		new UIImageButton(275, 10, 150, 35, Content.warehouse.texture, ()->{
+		new UIImageButton(300, 10, 150, 35, Content.warehouse.texture, ()->{
 			cursor = Content.warehouse;
+			return null;
+		});
+
+		new UIImageButton(375, 10, 150, 35, Content.smelter.texture, ()->{
+			cursor = Content.smelter;
+			return null;
+		});
+
+		new UIImageButton(450, 10, 150, 35, Content.splitter.texture, ()->{
+			cursor = Content.splitter;
+			return null;
+		});
+
+		new UIImageButton(520, 10, 150, 35, Content.cogPress.texture, ()->{
+			cursor = Content.cogPress;
 			return null;
 		});
 

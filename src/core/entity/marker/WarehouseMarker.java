@@ -4,8 +4,8 @@ import core.World;
 import core.entity.unit.Unit;
 import core.items.Item;
 import core.terrain.Axial;
-import core.terrain.WarehouseType;
-import core.terrain.constrution.PointerBlock;
+import core.terrain.constrution.types.WarehouseType;
+import core.terrain.constrution.blocks.PointerBlock;
 
 public class WarehouseMarker extends Marker {
 	public WarehouseMarker(Axial position) {
@@ -31,7 +31,7 @@ public class WarehouseMarker extends Marker {
 	@Override
 	public void satisfy(Unit u) {
 
-		if(World.blocks.get(position).type instanceof WarehouseType || (World.blocks.get(position) instanceof PointerBlock p  && World.blocks.get(p.target).type instanceof WarehouseType)){
+		if(World.blocks.get(position) != null && World.blocks.get(position).type instanceof WarehouseType || (World.blocks.get(position) instanceof PointerBlock p  && World.blocks.get(p.target).type instanceof WarehouseType)){
 			Item removalTarget = null;
 
 			for(Marker m : World.markers){

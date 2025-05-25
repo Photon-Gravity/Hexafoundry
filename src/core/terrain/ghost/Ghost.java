@@ -4,7 +4,7 @@ import core.World;
 import core.entity.marker.GhostMarker;
 import core.items.ItemIngredient;
 import core.terrain.Axial;
-import core.terrain.constrution.BlockType;
+import core.terrain.constrution.types.BlockType;
 
 import java.util.ArrayList;
 

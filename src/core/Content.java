@@ -4,8 +4,8 @@ import core.entity.unit.HoverAI;
 import core.entity.unit.UnitType;
 import core.items.*;
 import core.terrain.Axial;
-import core.terrain.WarehouseType;
-import core.terrain.constrution.*;
+import core.terrain.constrution.types.WarehouseType;
+import core.terrain.constrution.types.*;
 import core.terrain.tile.Floor;
 import core.terrain.tile.Ore;
 import core.terrain.tile.VoidFloor;
@@ -20,7 +20,7 @@ public class Content {
 	public static Ore methaneOre;
 	static UnitType testDrone;
 
-	public static BlockType pointer, basicDrill, pneumaticDuct, merger, warehouse;
+	public static BlockType pointer, basicDrill, pneumaticDuct, merger, warehouse, smelter, splitter, cogPress;
 
 	public static void load(){
 		//metals
@@ -87,6 +87,32 @@ public class Content {
 				new ItemIngredient("methane-cog", 5),
 			};
 
+		}};
+
+		smelter = new ReshaperType("smelter"){{
+			shape = new Axial[]{new Axial(0, 1), new Axial(-1, 1), new Axial(-1, 0)};
+			cost = new ItemIngredient[]{
+					new ItemIngredient("methane-ingot", 6)
+			};
+			ingredientType = chunk;
+			resultType = ingot;
+			outputTarget = Axial.d6[0];
+		}};
+		cogPress = new ReshaperType("cog-press"){{
+			shape = new Axial[]{new Axial(0, 1), new Axial(-1, 1), new Axial(0, -1), new Axial(1, -1)};
+			cost = new ItemIngredient[]{
+					new ItemIngredient("methane-ingot", 10),
+					new ItemIngredient("methane-cog", 4)
+			};
+			ingredientType = ingot;
+			resultType = cog;
+			outputTarget = Axial.d6[0];
+		}};
+
+		splitter = new SplitterType("splitter"){{
+			cost = new ItemIngredient[]{
+					new ItemIngredient("methane-ingot", 3)
+			};
 		}};
 
 		new Qualification("methane-ingot", item -> (item.type == ingot && item.composition.closeEnoughTo(new AlloyMix(methane, 1f), 0.9f)));

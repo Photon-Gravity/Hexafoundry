@@ -38,7 +38,6 @@ public class GhostMarker extends Marker{
 	public boolean canSkipPrerequisite(Unit u) {
 		return u.hasQualifiedItem(data.get(1));
 	}
-
 	@Override
 	public void satisfy(Unit u) {
 		int i = 0;

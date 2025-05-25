@@ -12,7 +12,7 @@ public class MainWindow extends JFrame{
 		add(screen);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
-		setTitle("Hexafoundry a0.1");
+		setTitle("Hexafoundry a0.2");
 		setVisible(true);
 	}
 }

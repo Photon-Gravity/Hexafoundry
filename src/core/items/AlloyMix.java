@@ -6,6 +6,11 @@ import java.util.HashMap;
 public class AlloyMix {
 	HashMap<MetalType, Float> composition = new HashMap<>();
 
+	private AlloyMix(){
+		composition = new HashMap<>();
+	}
+
+
 	/**Creates a new AlloyMix out of provided parameters. The parameters must be an alternating sequence of MetalTypes and floats.*/
 	public AlloyMix(Object... objects){
 		if((objects.length & 1) == 0){
@@ -84,5 +89,15 @@ public class AlloyMix {
 		}
 
 		return new Color(r, g, b);
+	}
+
+	public AlloyMix cpy(){
+		AlloyMix out = new AlloyMix();
+		for(int i=0; i < composition.size(); i++){
+			MetalType type = (MetalType)composition.keySet().toArray()[i];
+
+			out.composition.put(type, composition.get(type));
+		}
+		return out;
 	}
 }
